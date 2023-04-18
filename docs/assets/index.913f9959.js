@@ -552,7 +552,7 @@ const __vitePreload = function preload(baseModule, deps) {
   })).then(() => baseModule());
 };
 const SplashScreen = registerPlugin("SplashScreen", {
-  web: () => __vitePreload(() => import("./web.ca61b137.js"), true ? [] : void 0).then((m) => new m.SplashScreenWeb())
+  web: () => __vitePreload(() => import("./web.19220041.js"), true ? [] : void 0).then((m) => new m.SplashScreenWeb())
 });
 var CameraSource;
 (function(CameraSource2) {
@@ -572,7 +572,7 @@ var CameraResultType;
   CameraResultType2["DataUrl"] = "dataUrl";
 })(CameraResultType || (CameraResultType = {}));
 const Camera = registerPlugin("Camera", {
-  web: () => __vitePreload(() => import("./web.b98be659.js"), true ? [] : void 0).then((m) => new m.CameraWeb())
+  web: () => __vitePreload(() => import("./web.b3aea794.js"), true ? [] : void 0).then((m) => new m.CameraWeb())
 });
 const BackgroundGeolocation = registerPlugin("BackgroundGeolocation");
 BackgroundGeolocation.addWatcher(
@@ -583,6 +583,12 @@ BackgroundGeolocation.addWatcher(
     distanceFilter: 5
   },
   function callback(location, error) {
+    if (error) {
+      window.confirm("Location failed: " + error);
+      BackgroundGeolocation.openSettings();
+    } else {
+      console.log(location);
+    }
   }
 ).then(function initialised(watcherId) {
   BackgroundGeolocation.removeWatcher({ id: watcherId });
@@ -648,6 +654,7 @@ window.customElements.define(
           with a single code base.
         </p>
         <h2>Getting Started</h2>
+        <h2>MODIFIED</h2>
         <p>
           You'll probably need a UI framework to build a full-featured app. Might we recommend
           <a target="_blank" href="http://ionicframework.com/">Ionic</a>?
