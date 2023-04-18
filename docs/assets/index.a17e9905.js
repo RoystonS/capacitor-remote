@@ -552,7 +552,7 @@ const __vitePreload = function preload(baseModule, deps) {
   })).then(() => baseModule());
 };
 const SplashScreen = registerPlugin("SplashScreen", {
-  web: () => __vitePreload(() => import("./web.4683fdef.js"), true ? [] : void 0).then((m) => new m.SplashScreenWeb())
+  web: () => __vitePreload(() => import("./web.b1659370.js"), true ? [] : void 0).then((m) => new m.SplashScreenWeb())
 });
 var CameraSource;
 (function(CameraSource2) {
@@ -572,9 +572,10 @@ var CameraResultType;
   CameraResultType2["DataUrl"] = "dataUrl";
 })(CameraResultType || (CameraResultType = {}));
 const Camera = registerPlugin("Camera", {
-  web: () => __vitePreload(() => import("./web.4dcfaac8.js"), true ? [] : void 0).then((m) => new m.CameraWeb())
+  web: () => __vitePreload(() => import("./web.df754ea3.js"), true ? [] : void 0).then((m) => new m.CameraWeb())
 });
 const BackgroundGeolocation = registerPlugin("BackgroundGeolocation");
+const sightings = [];
 BackgroundGeolocation.addWatcher(
   {
     backgroundMessage: "Cancel to improve battery usage",
@@ -583,7 +584,18 @@ BackgroundGeolocation.addWatcher(
     distanceFilter: 5
   },
   function callback(location, error) {
+    var _a;
     console.log("XYZZY", JSON.stringify(location), JSON.stringify(error));
+    if (location) {
+      sightings.push({
+        callbackTime: new Date(),
+        reportedTime: new Date((_a = location.time) != null ? _a : 0),
+        location: {
+          lat: location.latitude,
+          lng: location.longitude
+        }
+      });
+    }
     if (error) {
       window.confirm("Location failed: " + error);
       BackgroundGeolocation.openSettings();
@@ -674,6 +686,8 @@ window.customElements.define(
         <p>
           <img id="image" style="max-width: 100%">
         </p>
+        <textarea id="sightings" style="width:100%; height: 300px">
+        </textarea>
       </main>
     </div>
     `;
@@ -694,6 +708,17 @@ window.customElements.define(
           console.warn("User cancelled", e2);
         }
       });
+      const sightingsEl = self2.shadowRoot.querySelector("#sightings");
+      function updateSightings() {
+        let info = "Sightings:";
+        for (const sighting of sightings) {
+          info += `\r
+${sighting.callbackTime} - ${sighting.reportedTime} - ${sighting.location.lat}, ${sighting.location.lng}`;
+        }
+        sightingsEl.textContent = info;
+      }
+      setInterval(updateSightings, 3e3);
+      updateSightings();
     }
   }
 );
