@@ -552,7 +552,7 @@ const __vitePreload = function preload(baseModule, deps) {
   })).then(() => baseModule());
 };
 const SplashScreen = registerPlugin("SplashScreen", {
-  web: () => __vitePreload(() => import("./web.19220041.js"), true ? [] : void 0).then((m) => new m.SplashScreenWeb())
+  web: () => __vitePreload(() => import("./web.4683fdef.js"), true ? [] : void 0).then((m) => new m.SplashScreenWeb())
 });
 var CameraSource;
 (function(CameraSource2) {
@@ -572,7 +572,7 @@ var CameraResultType;
   CameraResultType2["DataUrl"] = "dataUrl";
 })(CameraResultType || (CameraResultType = {}));
 const Camera = registerPlugin("Camera", {
-  web: () => __vitePreload(() => import("./web.b3aea794.js"), true ? [] : void 0).then((m) => new m.CameraWeb())
+  web: () => __vitePreload(() => import("./web.4dcfaac8.js"), true ? [] : void 0).then((m) => new m.CameraWeb())
 });
 const BackgroundGeolocation = registerPlugin("BackgroundGeolocation");
 BackgroundGeolocation.addWatcher(
@@ -583,6 +583,7 @@ BackgroundGeolocation.addWatcher(
     distanceFilter: 5
   },
   function callback(location, error) {
+    console.log("XYZZY", JSON.stringify(location), JSON.stringify(error));
     if (error) {
       window.confirm("Location failed: " + error);
       BackgroundGeolocation.openSettings();
@@ -591,7 +592,6 @@ BackgroundGeolocation.addWatcher(
     }
   }
 ).then(function initialised(watcherId) {
-  BackgroundGeolocation.removeWatcher({ id: watcherId });
 });
 window.customElements.define(
   "capacitor-welcome",
