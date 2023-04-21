@@ -1,4 +1,4 @@
-import { W as WebPlugin, C as CameraSource, a as CameraDirection, b as CapacitorException } from "./index.00754874.js";
+import { W as WebPlugin, C as CameraSource, a as CameraDirection, b as CapacitorException } from "./index.4932c28f.js";
 class CameraWeb extends WebPlugin {
   async getPhoto(options) {
     return new Promise(async (resolve, reject) => {

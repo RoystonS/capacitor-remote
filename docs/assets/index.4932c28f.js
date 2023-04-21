@@ -552,7 +552,7 @@ const __vitePreload = function preload(baseModule, deps) {
   })).then(() => baseModule());
 };
 const SplashScreen = registerPlugin("SplashScreen", {
-  web: () => __vitePreload(() => import("./web.c593a5e8.js"), true ? [] : void 0).then((m) => new m.SplashScreenWeb())
+  web: () => __vitePreload(() => import("./web.a0d02cf0.js"), true ? [] : void 0).then((m) => new m.SplashScreenWeb())
 });
 var CameraSource;
 (function(CameraSource2) {
@@ -572,7 +572,7 @@ var CameraResultType;
   CameraResultType2["DataUrl"] = "dataUrl";
 })(CameraResultType || (CameraResultType = {}));
 const Camera = registerPlugin("Camera", {
-  web: () => __vitePreload(() => import("./web.5c5921fe.js"), true ? [] : void 0).then((m) => new m.CameraWeb())
+  web: () => __vitePreload(() => import("./web.079f1196.js"), true ? [] : void 0).then((m) => new m.CameraWeb())
 });
 const BackgroundGeolocation = registerPlugin("BackgroundGeolocation");
 const sightings = [];
@@ -758,6 +758,6 @@ window.customElements.define(
   }
 );
 if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("/sw.js", {});
+  navigator.serviceWorker.register("./sw.js", {});
 }
 export { CameraSource as C, WebPlugin as W, CameraDirection as a, CapacitorException as b };
