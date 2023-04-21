@@ -520,7 +520,7 @@ registerPlugin("CapacitorHttp", {
 });
 const scriptRel = "modulepreload";
 const seen = {};
-const base = "/";
+const base = "./";
 const __vitePreload = function preload(baseModule, deps) {
   if (!deps || deps.length === 0) {
     return baseModule();
@@ -552,7 +552,7 @@ const __vitePreload = function preload(baseModule, deps) {
   })).then(() => baseModule());
 };
 const SplashScreen = registerPlugin("SplashScreen", {
-  web: () => __vitePreload(() => import("./web.b1659370.js"), true ? [] : void 0).then((m) => new m.SplashScreenWeb())
+  web: () => __vitePreload(() => import("./web.51d76e69.js"), true ? [] : void 0).then((m) => new m.SplashScreenWeb())
 });
 var CameraSource;
 (function(CameraSource2) {
@@ -572,7 +572,7 @@ var CameraResultType;
   CameraResultType2["DataUrl"] = "dataUrl";
 })(CameraResultType || (CameraResultType = {}));
 const Camera = registerPlugin("Camera", {
-  web: () => __vitePreload(() => import("./web.df754ea3.js"), true ? [] : void 0).then((m) => new m.CameraWeb())
+  web: () => __vitePreload(() => import("./web.6bbf32d9.js"), true ? [] : void 0).then((m) => new m.CameraWeb())
 });
 const BackgroundGeolocation = registerPlugin("BackgroundGeolocation");
 const sightings = [];
@@ -581,19 +581,14 @@ BackgroundGeolocation.addWatcher(
     backgroundMessage: "Cancel to improve battery usage",
     backgroundTitle: "FA Tracker",
     requestPermissions: true,
-    distanceFilter: 5
+    distanceFilter: 1
   },
   function callback(location, error) {
-    var _a;
     console.log("XYZZY", JSON.stringify(location), JSON.stringify(error));
     if (location) {
-      sightings.push({
+      sightings.unshift({
         callbackTime: new Date(),
-        reportedTime: new Date((_a = location.time) != null ? _a : 0),
-        location: {
-          lat: location.latitude,
-          lng: location.longitude
-        }
+        locationInfo: location
       });
     }
     if (error) {
@@ -684,15 +679,19 @@ window.customElements.define(
           <button class="button" id="take-photo">Take Photo</button>
         </p>
         <p>
+        <button id="btnCallSW">Call Service Worker</button>
+        <textarea id="log" style="width: 100%; height: 40px"></textarea>
+        <p>
           <img id="image" style="max-width: 100%">
         </p>
-        <textarea id="sightings" style="width:100%; height: 300px">
+        <textarea id="sightings" style="width:100%; height: 300px" readonly>
         </textarea>
       </main>
     </div>
     `;
     }
     connectedCallback() {
+      var _a, _b, _c;
       const self2 = this;
       self2.shadowRoot.querySelector("#take-photo").addEventListener("click", async function(e) {
         try {
@@ -707,6 +706,14 @@ window.customElements.define(
         } catch (e2) {
           console.warn("User cancelled", e2);
         }
+      });
+      const logEl = (_a = self2.shadowRoot) == null ? void 0 : _a.querySelector("#log");
+      (_c = (_b = self2.shadowRoot) == null ? void 0 : _b.querySelector("#btnCallSW")) == null ? void 0 : _c.addEventListener("click", () => {
+        fetch("/swversion").then(async (response) => {
+          logEl.textContent = new Date() + await response.text();
+        }).catch((err) => {
+          logEl.textContent = "failed: " + err;
+        });
       });
       const sightingsEl = self2.shadowRoot.querySelector("#sightings");
       function updateSightings() {
@@ -750,4 +757,7 @@ window.customElements.define(
     }
   }
 );
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("/sw.js", {});
+}
 export { CameraSource as C, WebPlugin as W, CameraDirection as a, CapacitorException as b };
