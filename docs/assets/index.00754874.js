@@ -552,7 +552,7 @@ const __vitePreload = function preload(baseModule, deps) {
   })).then(() => baseModule());
 };
 const SplashScreen = registerPlugin("SplashScreen", {
-  web: () => __vitePreload(() => import("./web.51d76e69.js"), true ? [] : void 0).then((m) => new m.SplashScreenWeb())
+  web: () => __vitePreload(() => import("./web.c593a5e8.js"), true ? [] : void 0).then((m) => new m.SplashScreenWeb())
 });
 var CameraSource;
 (function(CameraSource2) {
@@ -572,7 +572,7 @@ var CameraResultType;
   CameraResultType2["DataUrl"] = "dataUrl";
 })(CameraResultType || (CameraResultType = {}));
 const Camera = registerPlugin("Camera", {
-  web: () => __vitePreload(() => import("./web.6bbf32d9.js"), true ? [] : void 0).then((m) => new m.CameraWeb())
+  web: () => __vitePreload(() => import("./web.5c5921fe.js"), true ? [] : void 0).then((m) => new m.CameraWeb())
 });
 const BackgroundGeolocation = registerPlugin("BackgroundGeolocation");
 const sightings = [];
@@ -709,7 +709,7 @@ window.customElements.define(
       });
       const logEl = (_a = self2.shadowRoot) == null ? void 0 : _a.querySelector("#log");
       (_c = (_b = self2.shadowRoot) == null ? void 0 : _b.querySelector("#btnCallSW")) == null ? void 0 : _c.addEventListener("click", () => {
-        fetch("/swversion").then(async (response) => {
+        fetch("./swversion").then(async (response) => {
           logEl.textContent = new Date() + await response.text();
         }).catch((err) => {
           logEl.textContent = "failed: " + err;

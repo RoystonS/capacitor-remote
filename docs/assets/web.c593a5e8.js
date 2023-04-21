@@ -1,4 +1,4 @@
-import { W as WebPlugin } from "./index.b6d4989d.js";
+import { W as WebPlugin } from "./index.00754874.js";
 class SplashScreenWeb extends WebPlugin {
   async show(_options) {
     return void 0;
