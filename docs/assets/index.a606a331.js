@@ -552,7 +552,7 @@ const __vitePreload = function preload(baseModule, deps) {
   })).then(() => baseModule());
 };
 const SplashScreen = registerPlugin("SplashScreen", {
-  web: () => __vitePreload(() => import("./web.a0d02cf0.js"), true ? [] : void 0).then((m) => new m.SplashScreenWeb())
+  web: () => __vitePreload(() => import("./web.3df766c4.js"), true ? [] : void 0).then((m) => new m.SplashScreenWeb())
 });
 var CameraSource;
 (function(CameraSource2) {
@@ -572,7 +572,7 @@ var CameraResultType;
   CameraResultType2["DataUrl"] = "dataUrl";
 })(CameraResultType || (CameraResultType = {}));
 const Camera = registerPlugin("Camera", {
-  web: () => __vitePreload(() => import("./web.079f1196.js"), true ? [] : void 0).then((m) => new m.CameraWeb())
+  web: () => __vitePreload(() => import("./web.1934c4df.js"), true ? [] : void 0).then((m) => new m.CameraWeb())
 });
 const BackgroundGeolocation = registerPlugin("BackgroundGeolocation");
 const sightings = [];
@@ -719,8 +719,9 @@ window.customElements.define(
       function updateSightings() {
         let info = "Sightings:";
         for (const sighting of sightings) {
+          const { callbackTime, locationInfo } = sighting;
           info += `\r
-${sighting.callbackTime} - ${sighting.reportedTime} - ${sighting.location.lat}, ${sighting.location.lng}`;
+${callbackTime} - ${new Date(locationInfo.time)} - ${locationInfo.latitude}, ${locationInfo.longitude}`;
         }
         sightingsEl.textContent = info;
       }
